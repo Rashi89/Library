@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Najlepsza biblioteka!</title>
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+    <link rel="stylesheet" th:href="@{/bootstrap/css/bootstrap.min.css}" />
+    <link rel="stylesheet" th:href="@{/fontello/css/fontello.css}" th:type="@{text/css}"/><link rel = "stylesheet" th:href="@{/style.css}" th:type="@{text/css}"/>
+</head>
+<body>
+<div th:replace="fragments/belka"></div>
+<div class="container">
+    <div class="row books_cards_details">
+        <div class="row book_card_details">
+            <div class="col-md-4 col-sm-12 d-flex justify-content-center align-items-center book__card_img_details">
+
+                <img  src="img/default_user.png">
+
+            </div>
+            <div class="col-md-8 col-sm-12 book__card_info_details">
+                <div class="row">
+                    <div class="col-12" th:each="u: ${user}">
+                        <div class="title_details">
+                            Profil użytkownika
+                        </div>
+                        <div class="profile_info">
+                            <span class="titles">Imię:</span>
+                            <span th:text="${u.name}"></span>
+                        </div>
+                        <div class="profile_info">
+                            <span class="titles">Nazwisko:</span> <span th:text="${u.surname}"></span>
+                        </div>
+                        <div class="profile_info" >
+                            <span class="titles">Ilość wypożyczeń: </span><span th:text="${rentalsQuantity}"></span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="container">
+    <div class="row rentals">
+        <div class="row rentals_table">
+            <div class="col-12 rentals_text">wypożyczenia</div>
+            <table class="table">
+                <thead>
+                <tr>
+                    <th scope="col">#</th>
+                    <th scope="col">Tytuł</th>
+                    <th scope="col">Autor</th>
+                    <th scope="col">Data wypożyczenia</th>
+                    <th scope="col">Data zwrotu</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr th:each="rentals,iStat: ${rentals}">
+                    <td><span th:text="${iStat.index}+1"></span></td>
+                    <td><span th:text="${rentals.title}"></span></td>
+                    <td><span th:text="${rentals.author}"></span></td>
+                    <td><span th:text="${rentals.startDate}"></span></td>
+                    <td><span th:text="${rentals.endDate}"></span></td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+
+    </div>
+    <div class="login_rej_button more_button">
+        <div class="button_akcept">
+        </div>
+    </div>
+</div>
+    <div th:replace="fragments/footer"></div>
+
+</body>
+</html>

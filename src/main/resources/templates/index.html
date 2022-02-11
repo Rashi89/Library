@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+    <meta charset="UTF-8">
+    <title>Najlepsza biblioteka!</title>
+  <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+    <script src="http://ajax.aspnetcdn.com/ajax/jquery.validate/1.15.0/jquery.validate.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/jquery-validation@1.19.2/dist/jquery.validate.min.js"></script>
+
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+    <link rel="stylesheet" th:href="@{/bootstrap/css/bootstrap.min.css}" />
+  <link rel="stylesheet" th:href="@{/fontello/css/fontello.css}" th:type="@{text/css}"/>
+    <link rel = "stylesheet" th:href="@{/style.css}" th:type="@{text/css}"/>
+</head>
+<body>
+
+    <div id="main_modal" class="modalny hidden">
+        <div class="modalny_wraper">
+            <div class="belka_modal">
+                <p onclick="closes()" class="modalny_close">x</p>
+                <p class="log_rej">Logowanie/rejestracja</p>
+            </div>
+            <form th:action="@{/loginUsersIndex}" method="post" th:object="${user}">
+                <div class="login_form">
+                    <label>Imię</label>
+                    <div><input type="text" name="name" id="names" class="" th:field="*{name}"/></div>
+                </div>
+                <div class="login_form">
+                    <label>Nazwisko</label>
+                    <div><input type="text" name="surname" id="surname" class="" th:field="*{surname}"/></div>
+                </div>
+                <div class="login_form">
+                    <label>Password</label>
+                    <div><input type="password" name="password" id="password" class="" th:field="*{password}"/></div>
+                </div>
+                <div class="login_rej_button">
+                    <input type="submit" value="Zaloguj!" class="button_akcept_modal">
+                    <input type="reset" value="Zarejestruj sie!" onclick="opens_rejestr()" class="button_akcept_modal">
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <div id="second_modal" class="modalny hidden">
+        <div class="modalny_wraper">
+            <div class="belka_modal">
+                <p onclick="second_closes()" class="modalny_close">x</p>
+                <p class="log_rej">Rejestracja</p>
+            </div>
+            <form th:action="@{/userRejestr}" id="rejestrForm"  method="post" th:object="${user}">
+                <div class="login login_form">
+                    <label>Imię</label>
+                    <div><input type="text" name="name" id="name" class="" th:field="*{name}"/></div>
+                </div>
+                <div class="surname login_form">
+                    <label>Nazwisko</label>
+                    <div><input type="text" name="surname" id="surname" class="" th:field="*{surname}"/></div>
+                </div>
+                <div></div>
+                <div class="first login_form">
+                    <label>Hasło</label>
+                    <div><input type="password" name="password" id="passwords" class="" th:field="*{password}"/></div>
+                </div>
+                <div class="second login_form">
+                    <label>Powtórz hasło</label>
+                    <div><input type="password" name="password_second" id="password_second" class="" /></div>
+                </div>
+                <div th:each="e: ${error}">
+                    <span ></span>!
+                </div>
+                <div class="login_rej_button">
+                    <div class="button_akcept">
+                        <button type="submit" class="button_akcept_modal" onclick="rentals_akcept()">Zarejestruj!</button>
+                    </div>
+                    <div>
+                        <button type="cancel" class="button_cancel_modal" onclick="second_closes()">Anuluj!</button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <div th:replace="fragments/belkaIndex"></div>
+    <div class="content">
+        <div id="books_cards" class="books_cards">
+            <div class="book_card" th:each="b: ${books}">
+                    <div class="book__card_img">
+
+                    <img th:src="${'/img/'+b.id+'.png'}">
+
+                    </div>
+                    <div class="book__card_info">
+                        <div class="title">
+                            <span class="titles">Tytuł:</span> <span th:text="${b.title}"></span>
+                        </div>
+                        <div class="title">
+                            <span class="titles">Autor:</span>
+                            <span th:text="${b.author}"></span>
+                        </div>
+                        <div class="title">
+                            <span class="titles">Wydawnictwo:</span> <span th:text="${b.publisher}"></span>
+                        </div>
+                        <div class="title">
+                            <span class="titles">Rok premiery:</span> <span th:text="${b.publicationDate}"></span>
+                        </div>
+                        <div class="title">
+                            <span class="titles">Ilość egzemplarzy:</span> <span th:text="${b.quantity}"></span>
+                        </div>
+                    </div>
+                <div class="rental_button">
+                    <a th:href="${'/book/'+b.id}"><button class="button" type="button">Szczegóły!</button></a>
+                </div>
+            </div>
+        </div>
+        <div class="login_rej_button more_button">
+            <div class="button_akcept">
+            </div>
+        </div>
+    </div>
+    <div th:replace="fragments/footer"></div>
+</div>
+
+    <script src="http://ajax.aspnetcdn.com/ajax/jquery.validate/1.15.0/jquery.validate.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/jquery-validation@1.19.2/dist/jquery.validate.min.js"></script>
+    <script type="text/javascript">
+        $(document).ready(function(){
+        $("#rejestrForm").validate({
+        rules: {
+            name: {
+                required:true
+            },
+            surname:{
+                required:true
+            },
+            password: {
+                required: true,
+                minlength: 6
+            },
+            password_second:{
+                equalTo:"#passwords"
+            }
+        },
+        messages: {
+            name: {
+                required: "Podaj imię!"
+            },
+            surname:{
+                required: "Podaj nazwisko!"
+            },
+            password:{
+                required: "Podaj hasło!",
+                minlength: "Hasło powinno składać sie z conajmniej 6 znaków!"
+            },
+            password_second: {
+                equalTo: "Podaj poprawne hasło!"
+            }
+        },
+        highlight: function(element) {
+            $(element).addClass('error');
+        }, unhighlight: function(element) {
+            $(element).removeClass('error');
+        },
+     errorPlacement: function(error, element) {
+            if (element.attr("name") == "name") {
+                error.insertAfter(".login");
+            }else if(element.attr("name")=="surname"){
+                error.insertAfter(".surname");
+            }
+             else if(element.attr("name")=="password"){
+                error.insertAfter(".first");
+            } else if(element.attr("name")=="password_second"){
+                error.insertAfter(".second");
+            }
+        }
+
+    });
+  });
+    </script>
+    <script type="text/javascript" th:src="@{/modal.js}"></script>
+</body>
+</html>

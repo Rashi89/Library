@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Najlepsza biblioteka!</title>
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+    <link rel="stylesheet" th:href="@{/bootstrap/css/bootstrap.min.css}" />
+    <link rel="stylesheet" th:href="@{/fontello/css/fontello.css}" th:type="@{text/css}"/>
+    <link rel = "stylesheet" th:href="@{/style.css}" th:type="@{text/css}"/>
+</head>
+<body>
+<div id="main_modal" class="modalny hidden">
+    <div class="modalny_wraper">
+        <div class="belka_modal">
+            <p class="log_rej">Potwierdź wypożyczenie</p>
+        </div>
+        <form action="" method="" onsubmit="return false;">
+            <div class="login_rej_button">
+                <div class="button_akcept">
+                    <button class="button_akcept_modal" onclick="rentals_akcept()">Potwierdzam!</button>
+                </div>
+                <div>
+                    <button class="button_cancel_modal" onclick="closes()">Anuluj!</button>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+
+<div id="second_modal" class="modalny hidden">
+    <div class="modalny_wraper">
+        <div class="belka_modal">
+            <p onclick="second_closes()" class="modalny_close">x</p>
+            <p class="log_rej">Potwierdzenie</p>
+        </div>
+        <div>
+            <p class="rental_info">Dziekujemy! Można odebrać książki w&nbsp;naszej bibliotece! Zapraszamy!</p>
+        </div>
+        <div class="login_rej_button_second">
+            <div class="button_akcept">
+                <button class="button_akcept_modal" onclick="second_closes()">OK!</button>
+            </div>
+        </div>
+    </div>
+
+</div>
+<div class = "container-fluid belka">
+    <div class="row">
+        <div class="col-md-4 col-sm-12 library_name">
+            <a th:href="@{${url}}">LB - Lubelska Biblioteka</a>
+        </div>
+        <div class="col-md-5 col-sm-12 browser">
+            <form th:action="@{${urlSearch}}" method="post" th:object="${book}">
+                <div class="row">
+                    <div class="col-sm-12 col-md-6 col-lg-6">
+                        <input class="find_text" type="text" name="q" th:field="*{title}">
+                    </div>
+                    <div class="col-sm-12 col-md-6 col-lg-6 browser_buttons">
+                        <input type="hidden" name="ie" value="utf-8">
+                        <input class="find_radio" type="radio" name="sitesearch" value="domena" id="sitesearch0" checked> <label class="label" for="sitesearch0">W serwisie</label>
+                        <input class="button_find" type="submit" value="Szukaj">
+                    </div>
+                </div>
+            </form>
+        </div>
+        <div class="col-md-3 col-sm-12">
+            <div class="row"th:each="u: ${user}">
+                <div class="col-8 user" >
+                    <a th:href="@{${urlUser}}">Witaj <span th:text="${u.name}"></span>!</a>
+                </div>
+                <div class="col-4 basket_icon" th:each="basketQuantity: ${basketQuantity}">
+                    <a th:href="${'/basket/'+u.id}"><span><i class="icon-basket"></i><span th:text="${basketQuantity}"></span></span></a>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</div>
+<div class="container">
+    <div class="row books_cards_details ">
+        <div class="row book_card_details book_detail" th:each="bd: ${book}">
+            <div class="col-md-3 col-sm-12 d-flex justify-content-center align-items-center book__card_img_details" >
+
+                <img th:src="${'/img/'+bd.id+'.png'}">
+
+            </div>
+            <div class="col-md-7 col-sm-12 book__card_info_details">
+                <div class="row">
+                    <div class="col-12">
+                        <div class="title_details">
+                            <span th:text="${bd.title}"></span>
+                        </div>
+                        <div class="title">
+                            <span class="titles">Autor:</span>
+                            <span th:text="${bd.author}"></span>
+                        </div>
+                        <div class="title">
+                            <span class="titles">Wydawnictwo:</span> <span th:text="${bd.publisher}"></span>
+                        </div>
+                        <div class="title">
+                            <span class="titles">Rok premiery:</span> <span th:text="${bd.publicationDate}"></span>
+                        </div>
+                    </div>
+                </div>
+                <div class="row details_first">
+                    <div class="col-12">
+                        <div class="description">
+                            Opis
+                        </div>
+                        <div id="detail" class="detail">
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-2 col-sm-12 d-flex justify-content-center align-items-center rental_button_details">
+
+                <a th:each="u: ${user}" th:href="${'/book/basket/'+bd.id+'/'+u.id}"><button th:each="q: ${quantity}" class="button" type="button">Wypożycz!</button></a>
+                <div class="info_quantity_empty" th:each="i: ${info}">Brak dostępnych egzemplarzy!</div>
+            </div>
+            <script th:inline="javascript">
+             var title = [[${bd.description}]];
+             const tresc = document.querySelector("#detail");
+             tresc.innerHTML = title;
+            </script>
+        </div>
+
+    </div>
+    <div class="login_rej_button more_button">
+        <div class="button_akcept">
+        </div>
+    </div>
+</div>
+<div th:replace="fragments/footer"></div>
+
+</body>
+</html>

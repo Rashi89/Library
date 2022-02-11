@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Najlepsza biblioteka!</title>
+  <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+  <link rel="stylesheet" th:href="@{/bootstrap/css/bootstrap.min.css}" />
+  <link rel="stylesheet" th:href="@{/fontello/css/fontello.css}" th:type="@{text/css}"/>
+  <link rel = "stylesheet" th:href="@{/style.css}" th:type="@{text/css}"/>
+</head>
+<body>
+<div id="main_modal" class="modalny hidden">
+  <div class="modalny_wraper">
+    <div class="belka_modal">
+      <p class="log_rej">Potwierdź wypożyczenie</p>
+    </div>
+
+      <div class="login_rej_button">
+        <div class="button_akcept" th:each="u: ${user}">
+          <form th:action="@{'/basketRental/'+${u.id}}" method="post">
+            <input type="button" class="button_akcept_modal" onclick="rentals_akcept()" value="Potwierdzam!">
+
+          </form>
+        </div>
+        <div>
+            <button class="button_cancel_modal" onclick="closes()" type="cancel">Anuluj!</button>
+        </div>
+      </div>
+
+  </div>
+</div>
+
+<div id="second_modal" class="modalny hidden">
+  <div class="modalny_wraper">
+    <div class="belka_modal">
+      <p onclick="second_closes()" class="modalny_close">x</p>
+      <p class="log_rej">Potwierdzenie</p>
+    </div>
+    <div>
+      <p class="rental_info">Dziekujemy! Można odebrać książki w&nbsp;naszej bibliotece! Zapraszamy!</p>
+    </div>
+    <div class="login_rej_button_second">
+      <div class="button_akcept" th:each="u: ${user}">
+        <form th:action="@{'/basketRental/'+${u.id}}" method="post">
+          <button class="button_akcept_modal" onclick="second_closes()" type="submit">OK!</button>
+        </form>
+      </div>
+    </div>
+  </div>
+
+</div>
+<div th:replace="fragments/belka"></div>
+<div class="container">
+  <div class="row rentals">
+    <div class="row rentals_table">
+      <div class="col-12 rentals_text">Koszyk</div>
+      <table class="table">
+        <thead>
+        <tr>
+          <th scope="col">#</th>
+          <th scope="col">Tytuł</th>
+          <th scope="col">Autor</th>
+          <th scope="col">Wydawnictwo</th>
+          <th scope="col">Rok wydania</th>
+
+        </tr>
+        </thead>
+        </thead>
+        <tbody>
+        <tr th:each="basket,iStat: ${basket}">
+          <td><span th:text="${iStat.index}+1"></span></td>
+          <td><span th:text="${basket.title}"></span></td>
+          <td><span th:text="${basket.author}"></span></td>
+          <td><span th:text="${basket.publisher}"></span></td>
+          <td><span th:text="${basket.publicationDate}"></span></td>
+        </tr>
+        </tbody>
+      </table>
+      <div class="row">
+        <div class="col-md-6 col-sm-12 d-flex justify-content-center align-items-center rental_button_details">
+          <form>
+            <button onclick="opens()" class="button" type="button">Wypożycz!</button>
+          </form>
+        </div>
+        <div class="col-md-6 col-sm-12 d-flex justify-content-center align-items-center rental_button_details" th:each="u: ${user}">
+          <form th:action="@{'/basketDel/'+${u.id}}" method="post">
+            <button class="button_cancel" type="submit">Anuluj!</button>
+          </form>
+        </div>
+
+      </div>
+    </div>
+  </div>
+  <div class="login_rej_button more_button">
+    <div class="button_akcept">
+    </div>
+  </div>
+</div>
+  <div th:replace="fragments/footer"></div>
+
+
+<script type="text/javascript" th:src="@{/modal.js}"></script>
+</body>
+</html>

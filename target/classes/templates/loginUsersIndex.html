@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+  <meta charset="UTF-8">
+  <title>Najlepsza biblioteka!</title>
+  <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+  <link rel="stylesheet" th:href="@{/bootstrap/css/bootstrap.min.css}" />
+  <link rel="stylesheet" th:href="@{/fontello/css/fontello.css}" th:type="@{text/css}"/><link rel = "stylesheet" th:href="@{/style.css}" th:type="@{text/css}"/>
+</head>
+<body>
+
+<div th:replace="fragments/belka"></div>
+
+<div class="content">
+  <div id="books_cards" class="books_cards">
+    <div class="book_card" th:each="b: ${books}">
+      <div class="book__card_img">
+
+        <img th:src="${'/img/'+b.id+'.png'}">
+
+      </div>
+      <div class="book__card_info">
+        <div class="title">
+          <span class="titles">Tytuł:</span> <span th:text="${b.title}"></span>
+        </div>
+        <div class="title">
+          <span class="titles">Autor:</span>
+          <span th:text="${b.author}"></span>
+        </div>
+        <div class="title">
+          <span class="titles">Wydawnictwo:</span> <span th:text="${b.publisher}"></span>
+        </div>
+        <div class="title">
+          <span class="titles">Rok premiery:</span> <span th:text="${b.publicationDate}"></span>
+        </div>
+        <div class="title">
+          <span class="titles">Ilość egzemplarzy:</span> <span th:text="${b.quantity}"></span>
+        </div>
+      </div>
+      <div class="rental_button">
+        <a th:href="${'/book/'+b.id}"><button class="button" type="button">Szczegóły!</button></a>
+      </div>
+
+    </div>
+
+  </div>
+  <div class="login_rej_button more_button">
+    <div class="button_akcept">
+    </div>
+  </div>
+
+</div>
+<div th:replace="fragments/footer"></div>
+
+
+
+<script type="text/javascript" th:src="@{/modal.js}"></script>
+</body>
+</html>

@@ -1,0 +1,29 @@
+<div class = "container-fluid belka">
+  <div class="row">
+    <div class="col-md-4 col-sm-12 library_name">
+      <a class="link_belka" th:href="@{/index}">LB - Lubelska Biblioteka</a>
+    </div>
+    <div class="col-md-5 col-sm-8 browser">
+      <form th:action="@{/index/search}" method="post" th:object="${book}">
+        <div class="row">
+          <div class="col-sm-12 col-md-6 col-lg-6">
+            <input class="find_text" type="text" name="q" th:field="*{title}">
+          </div>
+          <div class="col-sm-12 col-md-6 col-lg-6 browser_buttons">
+            <input type="hidden" name="ie" value="utf-8">
+            <input class="find_radio" type="radio" name="sitesearch" value="domena" id="sitesearch0" checked> <label class="label" for="sitesearch0">W serwisie</label>
+            <input class="button_find" type="submit" value="Szukaj">
+          </div>
+        </div>
+      </form>
+    </div>
+    <div class="col-md-3 col-sm-12">
+      <div class="row">
+        <div class="col-12 login_or_rejestr">
+          <div onclick="opens()">Logowanie/Rejestracja</div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</div>

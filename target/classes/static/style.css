@@ -266,15 +266,15 @@ color: #43abce !Important;
     color: white;
     background-color: #0b3c4d;
   }
-  html {
+html {
     position: relative;
     min-height: 100%;
   }
-  .rentals
+.rentals
   {
     margin-bottom:75px;
   }
-  .rentals_text
+.rentals_text
   {
       font-size:2rem;
       font-weight: 700;
@@ -283,7 +283,7 @@ color: #43abce !Important;
       padding-top:5px;
       text-transform: uppercase;
   }
-  tr
+tr
   {
     font-size:1rem;
     font-weight: 700;
@@ -353,6 +353,11 @@ color: #43abce !Important;
 .more_button
 {
     margin-bottom: 50px;
+    text-align: center;
+}
+.more_button_top
+{
+    text-align: center;
 }
 .profile_info
 {
@@ -400,7 +405,7 @@ color: #43abce !Important;
             width: 200px;
         }
 }
-#name-error,#password-error,#password_second-error,#surname-error
+#name-error,#passwords-error,#password_second-error,#surname-error
 {
     color:red;
     padding-left: 20px;
@@ -430,4 +435,9 @@ color: #43abce !Important;
     font-size: 1.5rem;
     font-weight:700;
     color:#0b3c4d;
+}
+.kafelekButton
+{
+ text-align: center;
+ display: inline-block;
 }

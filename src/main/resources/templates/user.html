@@ -35,6 +35,13 @@
                         <div class="profile_info" >
                             <span class="titles">Ilość wypożyczeń: </span><span th:text="${rentalsQuantity}"></span>
                         </div>
+                        <div class="logout">
+                            <form th:action="@{/userLogout}" method="post">
+                                <div class="rental_button">
+                                    <a href="/index"><button class="button" type="submit">Wyloguj</button></a>
+                                </div>
+                            </form>
+                        </div>
                     </div>
                 </div>
             </div>

@@ -441,3 +441,7 @@ tr
  text-align: center;
  display: inline-block;
 }
+.logout
+{
+    padding-top:40px;
+}

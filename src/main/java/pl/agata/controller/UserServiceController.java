@@ -7,6 +7,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.support.SessionStatus;
 import pl.agata.books.Book;
 import pl.agata.config.UserServiceConfig;
 import pl.agata.rental.Rental;
@@ -16,6 +17,7 @@ import pl.agata.service.UserService;
 import pl.agata.user.User;
 
 
+import javax.servlet.http.HttpSession;
 import java.security.NoSuchAlgorithmException;
 import java.sql.SQLException;
 import java.util.ArrayList;
@@ -98,6 +100,16 @@ public class UserServiceController {
 
            return "redirect:/index";
         }
+    }
+
+    @PostMapping("/userLogout")
+    public String loginUser(@ModelAttribute("user") User user, Model model, BindingResult result, HttpSession session, SessionStatus status) {
+
+        status.setComplete();
+        session.invalidate();
+
+        return "redirect:/index";
+
     }
 
 }

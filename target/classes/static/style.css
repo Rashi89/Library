@@ -19,7 +19,7 @@
     color: white;
     padding: 10px;
     font-size: 1rem;
-    text-align: center;
+    text-align: right;
 }
 
 .label
@@ -43,16 +43,29 @@
 }
 .find_text
 {
-    width: 350px;
+    width: 270px;
 }
-.user,.login_or_rejestr
+.find_part
+{
+padding-top: 5px;
+}
+.login_or_rejestr
+{
+    text-align: right;
+    font-size: 1.5rem;
+    font-weight: 700;
+    color:white;
+    padding: 10px;
+    padding-right:20px;
+
+}
+.user
 {
     text-align: center;
     font-size: 1.5rem;
     font-weight: 700;
     color:white;
     padding: 10px;
-
 }
 .login_or_rejestr:hover
 {
@@ -367,6 +380,15 @@ tr
 }
 @media screen and (max-width: 700px)
 {
+    .browser
+    {
+    text-align:center;
+    }
+    .login_or_rejestr
+    {
+    text-align:center;
+    padding-right:10px;
+    }
     .books_cards
     {
         flex-direction: column;

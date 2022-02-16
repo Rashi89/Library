@@ -141,11 +141,13 @@ color: #43abce !Important;
     font-size: 0.8rem;
     color:white;
     background-color:#0b3c4d;
+
 }
 .button:hover
 {
     background-color:#1d718d;
 }
+
 .book_card_info
 {
     margin-bottom:15px;

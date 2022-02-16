@@ -1,0 +1,9 @@
+<div class="login_rej_button more_button_top">
+  <div class="button_akcept">
+    <div class="kafelekButton rental_button" th:each="qp: ${quantityPages}">
+      <a th:href="${urlSearchBook}+${qp+1}">
+        <button th:id="'page_'+${qp+1}" class="button" type="button"><span th:text="${qp}+1"></span></button>
+      </a>
+    </div>
+  </div>
+</div>

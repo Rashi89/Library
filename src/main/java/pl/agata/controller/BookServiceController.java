@@ -13,7 +13,6 @@ import pl.agata.config.BookConfig;
 import pl.agata.service.BasketService;
 import pl.agata.service.BookService;
 import pl.agata.user.User;
-
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -38,7 +37,6 @@ public class BookServiceController {
 
     }
 
-    //@GetMapping("/book")
     public ResponseEntity<BookService> getBookService() throws SQLException {
         BookService bookService =  bookConfig.getBookService();
         return ResponseEntity.ok(bookService);

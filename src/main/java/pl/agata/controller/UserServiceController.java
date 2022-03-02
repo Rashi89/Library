@@ -1,7 +1,6 @@
 package pl.agata.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.annotation.Bean;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -12,10 +11,8 @@ import pl.agata.books.Book;
 import pl.agata.config.UserServiceConfig;
 import pl.agata.rental.Rental;
 import pl.agata.service.BasketService;
-import pl.agata.service.BookService;
 import pl.agata.service.UserService;
 import pl.agata.user.User;
-
 
 import javax.servlet.http.HttpSession;
 import java.security.NoSuchAlgorithmException;
@@ -23,7 +20,6 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
-
 
 @Controller
 @SessionAttributes({"loginUser","errors"})
@@ -67,6 +63,7 @@ public class UserServiceController {
         model.addAllAttributes(maps);
         return maps;
     }
+
     @PostMapping("/userRejestr")
     public String rejestrUser(User user, Model model, BindingResult result) throws SQLException, NoSuchAlgorithmException {
 
@@ -82,7 +79,6 @@ public class UserServiceController {
         return "redirect:/index";
     }
 
-
     @PostMapping("/loginUsersIndex")
     public String loginUser(@ModelAttribute("user") User user,@ModelAttribute("error") String error, Model model, BindingResult result) throws SQLException, NoSuchAlgorithmException {
 
@@ -97,8 +93,7 @@ public class UserServiceController {
             return "redirect:/loginUsersIndex";
         } else {
             model.addAttribute("errors",error);
-
-           return "redirect:/index";
+            return "redirect:/index";
         }
     }
 
